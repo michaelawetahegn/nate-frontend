@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <main>
+        <h1>Login</h1>
+        <form id="loginForm">
+            <label for="username">Username:</label>
+            <input type="text" id="username" required>
+            <label for="password">Password:</label>
+            <input type="password" id="password" required>
+            <button type="submit">Login</button>
+        </form>
+        <p id="errorMessage" class="error"></p>
+    </main>
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            try {
+                const response = await fetch('https://nate-tw3x.onrender.com/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username, password }),
+                });
+                const data = await response.json();
+                if (response.ok) {
+                    localStorage.setItem('token', data.token);
+                    localStorage.setItem('role', data.role);
+                    window.location.href = data.role === 'admin' ? 'admin.html' : 'driver.html';
+                } else {
+					localStorage.setItem('token', data.token);
+                    localStorage.setItem('role', data.role);
+                    window.location.href = data.role === 'admin' ? 'admin.html' : 'driver.html';
+                    //document.getElementById('errorMessage').textContent = data.error;
+                }
+            } catch (error) {
+                document.getElementById('errorMessage').textContent = 'Server error';
+            }
+        });
+    </script>
+</body>
+</html>

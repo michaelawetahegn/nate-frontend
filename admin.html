@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Upload</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+    .upload-container {
+      margin-top: 50px;
+      text-align: center;
+    }
+    .upload-button {
+      padding: 10px 20px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    .upload-button:hover {
+      background-color: #0056b3;
+    }
+    .file-name {
+      margin-top: 20px;
+      font-style: italic;
+      color: #555;
+    }
+  </style>
+</head>
+<body>
+  <h1>Admin Panel - Upload Trips</h1>
+
+  <div class="upload-container">
+    <input type="file" id="fileInput" style="display: none;" />
+    <button class="upload-button" onclick="triggerFileInput()">Upload File</button>
+    <div class="file-name" id="fileName">No file selected</div>
+  </div>
+
+  <script>
+    // Trigger the hidden file input when the button is clicked
+    function triggerFileInput() {
+      document.getElementById("fileInput").click();
+    }
+
+    // Display the file name once selected
+    document.getElementById("fileInput").addEventListener("change", function (event) {
+      const file = event.target.files[0];
+      const fileNameDisplay = document.getElementById("fileName");
+      if (file) {
+        fileNameDisplay.textContent = `Selected file: ${file.name}`;
+      } else {
+        fileNameDisplay.textContent = "No file selected";
+      }
+    });
+  </script>
+</body>
+</html>
