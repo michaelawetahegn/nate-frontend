@@ -48,15 +48,23 @@
     }
 
     // Display the file name once selected
-    document.getElementById("fileInput").addEventListener("change", function (event) {
-      const file = event.target.files[0];
-      const fileNameDisplay = document.getElementById("fileName");
-      if (file) {
-        fileNameDisplay.textContent = `Selected file: ${file.name}`;
-      } else {
-        fileNameDisplay.textContent = "No file selected";
-      }
-    });
+   document.getElementById("fileInput").addEventListener("change", async function(event) {
+  const file = event.target.files[0];
+  if (file) {
+    const formData = new FormData();
+    formData.append('file', file);
+
+    try {
+      const response = await fetch('https://nate-tw3x.onrender.com/upload', {
+        method: 'POST',
+        body: formData
+      });
+      // Handle response
+    } catch (error) {
+      console.error('Error uploading file:', error);
+    }
+  }
+});
   </script>
 </body>
 </html>
